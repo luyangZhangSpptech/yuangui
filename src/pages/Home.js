@@ -1,66 +1,137 @@
 import React from 'react';
 import heroImg from '../assets/hero.png';
+import EventAd from '../components/EventAd';
+import { useLanguage } from '../context/LanguageContext';
 
-/**
- * Landing page showcasing the mission and vision of NeZha Academy.
- * Includes a hero banner and a short overview of who we are and our core values.
- */
 const Home = () => {
+  const { t } = useLanguage();
+
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative">
-        <img
-          src={heroImg}
-          alt="Children performing on stage"
-          className="w-full h-96 object-cover"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-black bg-opacity-50 p-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">NeZha Academy</h1>
-          <p className="text-lg md:text-xl max-w-3xl">
-            Nurturing imagination and critical thinking through drama and transpersonal psychology.
-          </p>
-          <div className="mt-6 space-x-4">
-            <a
-              href="/programs"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-            >
-              Our Programs
-            </a>
-            <a
-              href="/contact"
-              className="bg-white text-blue-600 hover:bg-gray-100 py-2 px-4 rounded"
-            >
-              Contact Us
-            </a>
+    <div className="bg-[#f7f3ee] text-[#1c1c1c]">
+      <section className="border-b border-black/5 bg-[#f7f3ee]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
+          <div>
+            <p className="mb-4 text-sm font-medium uppercase tracking-[0.32em] text-[#8a7f72]">
+              {t('home.eyebrow')}
+            </p>
+
+            <h1 className="max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">
+              {t('home.title')}
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5a5650]">
+              {t('home.description')}
+            </p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="/about"
+                className="inline-flex items-center justify-center rounded-full bg-[#1d1d1d] px-7 py-3 text-sm font-semibold text-white transition hover:bg-black"
+              >
+                {t('home.aboutButton')}
+              </a>
+
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-7 py-3 text-sm font-semibold text-[#1d1d1d] transition hover:bg-[#f1ebe3]"
+              >
+                {t('home.joinButton')}
+              </a>
+            </div>
+          </div>
+
+          <div className="lg:justify-self-end">
+            <div className="overflow-hidden rounded-[2rem] border border-black/5 bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+              <img
+                src={heroImg}
+                alt={t('brand.name')}
+                className="h-[340px] w-full rounded-[1.5rem] object-cover md:h-[420px] lg:w-[480px]"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* About / Values Section */}
-      <section className="py-16 px-4 container mx-auto">
-        <h2 className="text-3xl font-bold mb-4 text-center">Who We Are</h2>
-        <p className="text-lg mb-8 text-center">
-          NeZha Academy is a non‑profit drama club in Silicon Valley dedicated to inspiring young minds through drama in transpersonal psychology. Our unique programs help children explore narrative thinking, develop empathy, and nurture independent thought.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white shadow-lg p-6 rounded">
-            <h3 className="text-xl font-semibold mb-2">Mission</h3>
-            <p>
-              We aim to revolutionize how children think and learn by integrating drama in transpersonal psychology, enhancing their understanding of complex social and ecological issues.
+      <EventAd />
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p className="mb-4 text-sm uppercase tracking-[0.3em] text-[#8a7f72]">
+              {t('home.whoWeAreEyebrow')}
             </p>
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
+              {t('home.whoWeAreTitle')}
+            </h2>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded">
-            <h3 className="text-xl font-semibold mb-2">Vision</h3>
-            <p>
-              We envision a world where every child has access to innovative learning experiences that promote personal growth, using creative arts as a bridge to knowledge, empathy, and empowerment.
-            </p>
+
+          <div className="space-y-6 text-base leading-8 text-[#57524d]">
+            <p>{t('home.whoWeAreP1')}</p>
+            <p>{t('home.whoWeAreP2')}</p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded">
-            <h3 className="text-xl font-semibold mb-2">Core Values</h3>
-            <p>
-              Creativity, empathy, independent thinking, community collaboration, and holistic development guide everything we do.
+        </div>
+      </section>
+
+      <section className="border-y border-black/5 bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+          <div className="mb-10">
+            <p className="mb-4 text-sm uppercase tracking-[0.3em] text-[#8a7f72]">
+              {t('home.highlightsEyebrow')}
             </p>
+            <h2 className="text-3xl font-semibold md:text-4xl">
+              {t('home.highlightsTitle')}
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-[1.75rem] bg-[#f7f3ee] p-8">
+              <h3 className="mb-4 text-2xl font-semibold">{t('home.card1Title')}</h3>
+              <p className="leading-8 text-[#5e5953]">{t('home.card1Text')}</p>
+            </div>
+
+            <div className="rounded-[1.75rem] bg-[#f7f3ee] p-8">
+              <h3 className="mb-4 text-2xl font-semibold">{t('home.card2Title')}</h3>
+              <p className="leading-8 text-[#5e5953]">{t('home.card2Text')}</p>
+            </div>
+
+            <div className="rounded-[1.75rem] bg-[#f7f3ee] p-8">
+              <h3 className="mb-4 text-2xl font-semibold">{t('home.card3Title')}</h3>
+              <p className="leading-8 text-[#5e5953]">{t('home.card3Text')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="rounded-[2rem] bg-[#1d1d1d] px-8 py-14 text-white md:px-14">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm uppercase tracking-[0.3em] text-white/55">
+                {t('home.ctaEyebrow')}
+              </p>
+              <h2 className="mb-4 text-3xl font-semibold md:text-5xl">
+                {t('home.ctaTitle')}
+              </h2>
+              <p className="max-w-2xl text-base leading-8 text-white/75">
+                {t('home.ctaText')}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4 lg:items-end">
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+              >
+                {t('home.ctaContact')}
+              </a>
+
+              <a
+                href="/faq"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-black"
+              >
+                {t('home.ctaLearnMore')}
+              </a>
+            </div>
           </div>
         </div>
       </section>

@@ -1,36 +1,24 @@
-import React, { useState } from 'react';
-import faqs from '../data/faqs';
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
-/**
- * FAQ page displays a list of frequently asked questions. Users can toggle
- * each question to reveal its answer. The FAQ data is stored in a separate
- * file for easy maintenance.
- */
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const { t } = useLanguage();
 
-  const toggle = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const faqs = [
+    { q: t('faq.q1'), a: t('faq.a1') },
+    { q: t('faq.q2'), a: t('faq.a2') },
+    { q: t('faq.q3'), a: t('faq.a3') }
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
-      <div className="space-y-4">
-        {faqs.map((faq, idx) => (
-          <div key={idx} className="border border-gray-200 rounded">
-            <button
-              className="w-full px-4 py-3 text-left flex justify-between items-center focus:outline-none"
-              onClick={() => toggle(idx)}
-            >
-              <span className="font-semibold">{faq.question}</span>
-              <span className="text-xl">{openIndex === idx ? '−' : '+'}</span>
-            </button>
-            {openIndex === idx && (
-              <div className="px-4 pb-4">
-                <p>{faq.answer}</p>
-              </div>
-            )}
+    <div className="mx-auto max-w-5xl px-6 py-20 md:px-10">
+      <h1 className="mb-10 text-4xl font-semibold">{t('faq.title')}</h1>
+
+      <div className="space-y-6">
+        {faqs.map((item, index) => (
+          <div key={index} className="rounded-[1.5rem] bg-white p-7 shadow-sm">
+            <h2 className="mb-3 text-xl font-semibold">{item.q}</h2>
+            <p className="leading-8 text-[#5d5852]">{item.a}</p>
           </div>
         ))}
       </div>

@@ -1,36 +1,114 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import logo from '../assets/yglogo.webp';
 
-/**
- * Responsive navigation bar component. Displays the site logo and
- * navigation links. On small screens, a hamburger menu toggles the
- * visibility of the nav links.
- */
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, lang, setLang } = useLanguage();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const navItemClass = ({ isActive }) =>
+    `py-2 text-base font-semibold transition ${
+      isActive ? 'text-[#a61d24]' : 'text-[#1d1d1d] hover:text-[#a61d24]'
+    }`;
+
+  const mobileNavWrapper = `${
+    isOpen ? 'flex' : 'hidden'
+  } absolute left-0 top-full w-full flex-col border-b border-black/5 bg-white px-6 py-4 sm:static sm:flex sm:w-auto sm:flex-row sm:items-center sm:gap-6 sm:border-0 sm:bg-transparent sm:p-0`;
 
   return (
-    <nav className="bg-blue-600 text-white">
-      <div className="container mx-auto flex justify-between items-center p-4">
-        <Link to="/" className="text-2xl font-bold hover:text-gray-200">
-          NeZha Academy
+    <nav className="sticky top-0 z-50 border-b border-black/5 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
+
+        {/* 🔥 LOGO + BRAND */}
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="YuanGui Theater Logo"
+            className="h-16 w-auto object-contain"
+          />
+          <span className="text-xl font-semibold text-[#1d1d1d]">
+            {t('brand.name')}
+          </span>
         </Link>
-        <button className="sm:hidden focus:outline-none" onClick={toggleMenu} aria-label="Toggle navigation menu">
-          <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Mobile Menu Button */}
+        <button
+          className="sm:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+          type="button"
+        >
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M4 6H20M4 12H20M4 18H20"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
-        <div className={`sm:flex space-x-6 ${isOpen ? 'block' : 'hidden'} sm:block`}> 
-          <Link to="/" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link to="/about" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>About</Link>
-          <Link to="/programs" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>Programs</Link>
-          <Link to="/community" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>Community</Link>
-          <Link to="/faq" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>FAQ</Link>
-          <Link to="/contact" className="block py-2 hover:text-gray-200" onClick={() => setIsOpen(false)}>Contact</Link>
+
+        {/* Nav Links */}
+        <div className={mobileNavWrapper}>
+          <NavLink to="/" end className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.home')}
+          </NavLink>
+
+          <NavLink
+            to="/shows/rashomon"
+            className={navItemClass}
+            onClick={() => setIsOpen(false)}
+          >
+            {t('nav.show')}
+          </NavLink>
+
+          <NavLink to="/about" className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.about')}
+          </NavLink>
+
+          <NavLink to="/programs" className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.programs')}
+          </NavLink>
+
+          <NavLink to="/community" className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.community')}
+          </NavLink>
+
+          <NavLink to="/faq" className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.faq')}
+          </NavLink>
+
+          <NavLink to="/contact" className={navItemClass} onClick={() => setIsOpen(false)}>
+            {t('nav.contact')}
+          </NavLink>
+
+          {/* 🌍 Language Switch */}
+          <div className="mt-3 flex items-center gap-2 sm:mt-0 sm:ml-2">
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`rounded-full px-3 py-1 text-sm font-medium transition ${
+                lang === 'en'
+                  ? 'bg-[#1d1d1d] text-white'
+                  : 'bg-[#f3ede6] text-[#1d1d1d] hover:bg-[#e8e0d6]'
+              }`}
+            >
+              EN
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setLang('zh')}
+              className={`rounded-full px-3 py-1 text-sm font-medium transition ${
+                lang === 'zh'
+                  ? 'bg-[#1d1d1d] text-white'
+                  : 'bg-[#f3ede6] text-[#1d1d1d] hover:bg-[#e8e0d6]'
+              }`}
+            >
+              中
+            </button>
+          </div>
         </div>
       </div>
     </nav>
