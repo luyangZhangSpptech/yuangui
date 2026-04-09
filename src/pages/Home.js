@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import heroImg from '../assets/hero.png';
 import EventAd from '../components/EventAd';
 import { useLanguage } from '../context/LanguageContext';
@@ -24,19 +25,19 @@ const Home = () => {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="/about"
+              <Link
+                to="/about"
                 className="inline-flex items-center justify-center rounded-full bg-[#1d1d1d] px-7 py-3 text-sm font-semibold text-white transition hover:bg-black"
               >
                 {t('home.aboutButton')}
-              </a>
+              </Link>
 
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-7 py-3 text-sm font-semibold text-[#1d1d1d] transition hover:bg-[#f1ebe3]"
               >
                 {t('home.joinButton')}
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -118,19 +119,19 @@ const Home = () => {
             </div>
 
             <div className="flex flex-col gap-4 lg:items-end">
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
               >
                 {t('home.ctaContact')}
-              </a>
+              </Link>
 
-              <a
-                href="/faq"
+              <Link
+                to="/faq"
                 className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-black"
               >
                 {t('home.ctaLearnMore')}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
