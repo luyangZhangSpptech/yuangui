@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import posterImg from '../assets/rashomon.jpg';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -14,9 +14,29 @@ const RashomonShow = () => {
   const handleTicketSelection = (timeSlot) => {
     const url = ticketLinks[timeSlot];
     if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
+      const popup = window.open(url, '_blank', 'noopener,noreferrer');
+      setShowTicketPicker(false);
+
+      if (!popup) {
+        window.location.href = url;
+      }
     }
   };
+
+  useEffect(() => {
+    if (!showTicketPicker) {
+      return undefined;
+    }
+
+    const handleEsc = (event) => {
+      if (event.key === 'Escape') {
+        setShowTicketPicker(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [showTicketPicker]);
 
   return (
     <>
@@ -190,8 +210,15 @@ const RashomonShow = () => {
       </div>
 
       {showTicketPicker && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6">
-          <div className="w-full max-w-md rounded-[2rem] bg-white p-8 shadow-2xl">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6"
+          role="presentation"
+          onClick={() => setShowTicketPicker(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-[2rem] bg-white p-8 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="mb-6">
               <p className="mb-2 text-sm uppercase tracking-[0.25em] text-[#8a7f72]">
                 {t('ticketModal.eyebrow')}
